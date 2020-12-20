@@ -1,0 +1,25 @@
+{
+  "name": "ff-batch",
+  "version": "1.0.0",
+  "bin": {
+    "ff-batch": "./bin/ff-batch.js"
+  },
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "node ./bin/ff-batch.js",
+    "start": "node ./bin/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ffmpeg-static": "^4.2.7"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
