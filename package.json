@@ -22,6 +22,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.2.1",
+    "draftlog": "^1.0.12",
     "ffmpeg-static": "^4.2.7"
   },
   "devDependencies": {
