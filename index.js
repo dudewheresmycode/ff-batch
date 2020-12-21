@@ -53,7 +53,7 @@ class FFBatch extends EventEmitter {
       name,
       deinterlace,
       input: isDirectory ? path.join(this.input, filepath) : filepath,
-      output: path.join(this.output, `${name}${suffix}${this.outputExtension}`)
+      output: path.join(this.output, `${name}${suffix}.${this.outputExtension}`)
     }
   }
 
