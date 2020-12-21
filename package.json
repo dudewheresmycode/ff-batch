@@ -1,6 +1,6 @@
 {
   "name": "ff-batch",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": {
     "ff-batch": "./bin/ff-batch.js"
   },

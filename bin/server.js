@@ -4,9 +4,11 @@ const FFBatch = require('../');
 const app = express();
 
 const HTTP_PORT = process.env.PORT || 8080;
+const STATIC_DIR = `${__dirname}/../html`;
+console.log(STATIC_DIR);
 
 app.use(express.json());
-app.use(express.static(`${process.cwd()}/html`));
+app.use(express.static(STATIC_DIR));
 
 const DEFAULT_STATUS = {
   active: false,
