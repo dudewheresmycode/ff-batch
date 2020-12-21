@@ -28,6 +28,6 @@ yarn start
 
 ### Built-in Presets
 
-- `dvd` (480p, h.264 768Kps, 160k aac stereo)
-- `720p` (720p, h.264 1.8Mpps, 192k aac stereo)
-- `1080p` (1080p, h.264 3.5Mpps, 192k aac stereo)
+- `dvd` (480p, h.264 768K, 160K aac stereo)
+- `720p` (720p, h.264 1.8M, 192K aac stereo)
+- `1080p` (1080p, h.264 3.5M, 192K aac stereo)
