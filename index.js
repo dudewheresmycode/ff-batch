@@ -17,13 +17,21 @@ class FFBatch extends EventEmitter {
     }
   ) {
     super();
+
+    this.deinterlace = options.deinterlace || false;
+
     this.input = options.input;
+    if (!this.input) { throw Error('Missing input'); }
+
     this.output = options.output;
-    this.deinterlace = options.deinterlace;
+    if (!this.output) { throw Error('Missing output'); }
+    
     this.preset = presets[options.preset];
     if (!this.preset) {
       throw Error(`Unkown preset: ${options.preset}`);
     }
+    this.seek = options.seek;
+
     this.files = [];
 
     this.scanInput().then(() => {
@@ -66,7 +74,7 @@ class FFBatch extends EventEmitter {
       await transcode(job, {
         preset: this.preset,
         deinterlace: job.deinterlace || this.deinterlace,
-        seek: program.seek,
+        seek: this.seek,
         onProgress: (data) => this.emit('progress', { ...data, index })
       });
 
