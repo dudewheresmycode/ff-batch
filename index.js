@@ -19,6 +19,7 @@ class FFBatch extends EventEmitter {
     super();
     this.input = options.input;
     this.output = options.output;
+    this.deinterlace = options.deinterlace;
     this.preset = presets[options.preset];
     if (!this.preset) {
       throw Error(`Unkown preset: ${options.preset}`);
@@ -63,8 +64,8 @@ class FFBatch extends EventEmitter {
     for (const [index, job] of this.files.entries()) {
 
       await transcode(job, {
-        preset,
-        deinterlace: job.deinterlace || !!program.deinterlace,
+        preset: this.preset,
+        deinterlace: job.deinterlace || this.deinterlace,
         seek: program.seek,
         onProgress: (data) => this.emit('progress', { ...data, index })
       });
