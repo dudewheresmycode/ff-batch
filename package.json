@@ -1,6 +1,6 @@
 {
   "name": "ff-batch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "bin": {
     "ff-batch": "./bin/ff-batch.js"
   },
@@ -25,9 +25,7 @@
     "chalk": "^4.1.0",
     "commander": "^6.2.1",
     "draftlog": "^1.0.12",
-    "ffmpeg-static": "^4.2.7"
-  },
-  "devDependencies": {
+    "ffmpeg-static": "^4.2.7",
     "express": "^4.17.1"
   }
 }

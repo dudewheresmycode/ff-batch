@@ -25,13 +25,9 @@ class FFBatch extends EventEmitter {
     }
     this.files = [];
 
-    this.scanInput()
-      .then(() => {
-        this.emit('ready', this.files);
-      });
-      // .catch((error) => {
-      //   this.emit('error', error);
-      // });
+    this.scanInput().then(() => {
+      this.emit('ready', this.files);
+    });
   }
   
   createJob(filepath, isDirectory) {
@@ -66,29 +62,14 @@ class FFBatch extends EventEmitter {
 
     for (const [index, job] of this.files.entries()) {
 
-      // await transcode(job, {
-      //   preset,
-      //   deinterlace: job.deinterlace || !!program.deinterlace,
-      //   seek: program.seek,
-      //   onProgress: (data) => cli.updateProgress({ ...data, index })
-      // });
+      await transcode(job, {
+        preset,
+        deinterlace: job.deinterlace || !!program.deinterlace,
+        seek: program.seek,
+        onProgress: (data) => this.emit('progress', { ...data, index })
+      });
 
-      this.emit('progress', { index, duration: 30, timeSeconds: 4, speed: 1.3 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 6, speed: 1.2 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 10, speed: 1.1 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 15, speed: 1.3 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 20, speed: 1.4 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 25, speed: 1.3 });
-      await sleep(500);
-      this.emit('progress', { index, duration: 30, timeSeconds: 30, speed: 1.2 });
-      await sleep(500);
       this.emit('complete', { ...job, index });
-
 
     }
     this.emit('exit');
