@@ -1,7 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const { isVideoFile, sleep } = require('./lib/utils');
-const { ALLOWED_EXTENSIONS, LEFT_PAD } = require('./lib/constants');
+const {
+ALLOWED_EXTENSIONS,
+  LEFT_PAD,
+  DEFAULT_OUTPUT_EXTENSION
+} = require('./lib/constants');
 const transcode = require('./lib/transcode');
 const presets = require('./lib/presets');
 const { EventEmitter } = require('events');
@@ -10,14 +14,13 @@ class FFBatch extends EventEmitter {
   constructor(
     options = {
       deinterlace: false,
-      input: undefined,
-      output: undefined,
+      // input: undefined,
+      // output: undefined,
       preset: '1080p',
-      seek: undefined
+      // seek: undefined
     }
   ) {
     super();
-
     this.deinterlace = options.deinterlace || false;
 
     this.input = options.input;
@@ -26,10 +29,13 @@ class FFBatch extends EventEmitter {
     this.output = options.output;
     if (!this.output) { throw Error('Missing output'); }
     
-    this.preset = presets[options.preset];
+    this.presetName = options.preset;
+    this.preset = presets[this.presetName];
     if (!this.preset) {
-      throw Error(`Unkown preset: ${options.preset}`);
+      throw Error(`Unkown preset: ${this.presetName}`);
     }
+    this.outputExtension = this.preset.extension || options.outputExtension || DEFAULT_OUTPUT_EXTENSION;
+
     this.seek = options.seek;
 
     this.files = [];
@@ -42,11 +48,12 @@ class FFBatch extends EventEmitter {
   createJob(filepath, isDirectory) {
     const { name } = path.parse(filepath);
     const deinterlace = name.includes('[d]');
+    const suffix = this.presetName ? ` [${this.presetName}]` : '';
     return {
       name,
       deinterlace,
       input: isDirectory ? path.join(this.input, filepath) : filepath,
-      output: path.join(this.output, `${name} [${this.preset}].mkv`)
+      output: path.join(this.output, `${name}${suffix}${this.outputExtension}`)
     }
   }
 
