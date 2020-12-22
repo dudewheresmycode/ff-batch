@@ -29,11 +29,17 @@ class FFBatch extends EventEmitter {
     this.output = options.output;
     if (!this.output) { throw Error('Missing output'); }
     
-    this.presetName = options.preset;
-    this.preset = presets[this.presetName];
+    if (fs.existsSync(path.resolve(options.preset))) {
+      this.presetName = 'custom';
+      this.preset = JSON.parse(fs.readFileSync(path.resolve(options.preset)));
+    } else {
+      this.presetName = options.preset;
+      this.preset = presets[this.presetName];
+    }
     if (!this.preset) {
       throw Error(`Unkown preset: ${this.presetName}`);
     }
+
     this.outputExtension = this.preset.extension || options.outputExtension || DEFAULT_OUTPUT_EXTENSION;
 
     this.seek = options.seek;

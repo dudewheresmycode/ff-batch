@@ -1,6 +1,6 @@
 {
   "name": "ff-batch",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "bin": {
     "ff-batch": "./bin/ff-batch.js"
   },
@@ -15,7 +15,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "node ./bin/ff-batch.js",
+    "cli": "node ./bin/ff-batch.js",
     "start": "node ./bin/server.js"
   },
   "keywords": [],
